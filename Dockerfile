@@ -1,6 +1,6 @@
 FROM php:8.0-fpm-alpine
 
-RUN apk add --update --no-cache --virtual .build-deps build-base git autoconf
+RUN apk add --update --no-cache --virtual .build-deps build-base git autoconf mysql-client
 
 # Install dependencies
 #RUN apk add --update --no-cache \
