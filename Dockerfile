@@ -25,11 +25,9 @@ RUN apk add --update --no-cache --virtual .build-deps build-base git autoconf
 #    curl \
 #    ffmpeg
 
-# Add user for laravel application
+# Add user for nette application
 RUN addgroup w
 RUN adduser www --disabled-password && adduser www w
-#RUN addgroup w
-#RUN adduser -s /bin/bash -g www w
 
 # Clear cache
 RUN rm -rf /var/cache/apk/*
@@ -58,15 +56,14 @@ COPY ./php-fpm-www.conf /usr/local/etc/php-fpm.d/www.conf
 
 RUN mkdir -p /home/php/api/vendor && chown -R www:www /home/php/api
 
-COPY --chown=www:www ./ /home/php/api
+COPY --chown=www:www ./ /var/www/api
 
 # Set working directory
-WORKDIR /home/php/api
+WORKDIR /var/www/api
 
 USER www
 
-RUN COMPOSER_MEMORY_LIMIT=-1 composer install --no-ansi --no-interaction --no-plugins --no-progress --no-scripts --no-suggest --optimize-autoloader
-#RUN COMPOSER_MEMORY_LIMIT=-1 composer install --no-ansi --no-dev --no-interaction --no-plugins --no-progress --no-scripts --no-suggest --optimize-autoloader
+RUN composer install --no-ansi --no-dev --no-interaction --no-plugins --no-progress --no-scripts --optimize-autoloader
 
 USER root
 

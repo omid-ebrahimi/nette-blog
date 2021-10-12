@@ -16,9 +16,9 @@ di:
 		parameters: no
 		tags: no
 
-
 services:
 	- App\Router\RouterFactory::createRouter
+	- App\Model\PostFacade
 
 security:
 	users:
